@@ -1,6 +1,7 @@
 package co.edu.cue.proyectofinalcorte3.controller;
 
 import co.edu.cue.proyectofinalcorte3.HelloApplication;
+import co.edu.cue.proyectofinalcorte3.model.Food;
 import co.edu.cue.proyectofinalcorte3.model.Ticket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,15 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class TicketViewController implements Initializable {
+
+    static ObservableList<Ticket> ticketsView = FXCollections.observableArrayList();
+
+    public static ObservableList<Ticket> getTicketsView() {
+        return ticketsView;
+    }
+
+
+
     ModelFactoryController mfc= ModelFactoryController.getInstance();
 
     ArrayList<Button> chairs = new ArrayList<Button>();
@@ -130,23 +140,21 @@ public class TicketViewController implements Initializable {
 
     @FXML
     void chair(ActionEvent event) {
-        //
+
         String chair = event.getSource().toString();
         String[] sillas = chair.split("'");
         chair = sillas[1];
         double price = 10000;
-        //
-
-        //
-        mfc.chairMovie(nameMovie.getText(), chair,price,chairs,tblView);
+        mfc.chairMovie(nameMovie.getText(), chair,price,chairs,tblView,ticketsView);
 
 
     }
 
     @FXML
     void movieView(ActionEvent event) throws IOException {
+        mfc.deleteAll(nameMovie.getText(),chairs);
         chairs.clear();
-        mfc.theater.getSellService().getTicketsView().clear();
+        ticketsView.clear();
         HelloApplication.moviesViews(event);
 
     }
@@ -201,7 +209,7 @@ public class TicketViewController implements Initializable {
     }
 
     public void loadChair(){
-        mfc.loadChairs(chairs, nameMovie.getText(),tblView);
+        mfc.loadChairs(chairs, nameMovie.getText(),tblView,ticketsView);
     }
 
 

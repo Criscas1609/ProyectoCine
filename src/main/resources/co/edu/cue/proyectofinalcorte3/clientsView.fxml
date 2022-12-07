@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -104,23 +103,22 @@
          <children>
             <AnchorPane prefHeight="514.0" prefWidth="684.0">
                <children>
-                  <Button layoutX="424.0" layoutY="466.0" mnemonicParsing="false" text="Crear" />
-                  <Button layoutX="490.0" layoutY="466.0" mnemonicParsing="false" text="Elinminar" />
-                  <Button layoutX="580.0" layoutY="466.0" mnemonicParsing="false" text="Seleccionar" />
-                  <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" text="Buscar" />
-                  <TextField id="nombreProfesor" fx:id="nombreProfesor112" layoutX="207.0" layoutY="466.0" prefHeight="26.0" prefWidth="111.0" promptText="Buscar" />
-                  <Button layoutX="349.0" layoutY="466.0" mnemonicParsing="false" text="Editar" />
+                  <Button fx:id="createButton" layoutX="424.0" layoutY="466.0" mnemonicParsing="false" onAction="#create" text="Crear" />
+                  <Button layoutX="490.0" layoutY="466.0" mnemonicParsing="false" onAction="#delete" text="Eliminar" />
+                  <Button layoutX="580.0" layoutY="466.0" mnemonicParsing="false" onAction="#select" text="Seleccionar" />
+                  <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#search" text="Buscar" />
+                  <TextField id="nombreProfesor" fx:id="inputSearch" layoutX="207.0" layoutY="466.0" prefHeight="26.0" prefWidth="111.0" promptText="Buscar" />
+                  <Button layoutX="349.0" layoutY="466.0" mnemonicParsing="false" onAction="#edit" text="Editar" />
                </children></AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="694.0">
                <children>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="271.0" prefWidth="786.0">
+                  <AnchorPane layoutX="40.0" layoutY="3.0" minHeight="0.0" minWidth="0.0" prefHeight="271.0" prefWidth="746.0">
                      <children>
-                        <GridPane layoutX="50.0" layoutY="14.0" prefHeight="279.0" prefWidth="676.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="0.0">
+                        <GridPane layoutX="50.0" layoutY="14.0" prefHeight="235.0" prefWidth="676.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="0.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -129,9 +127,9 @@
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
                                     <Label text="Nombre" />
-                                    <TextField id="nombreProfesor" fx:id="nombreProfesor" prefHeight="26.0" prefWidth="190.0" promptText="Ingrese el primer nombre" />
+                                    <TextField id="nombreProfesor" fx:id="nameClient" prefHeight="26.0" prefWidth="190.0" promptText="Ingrese el primer nombre" />
                                     <Label text="Apellido" />
-                                    <TextField id="nombreProfesor" fx:id="nombreProfesor1" prefHeight="26.0" prefWidth="190.0" promptText="Ingrese el primer apellido" />
+                                    <TextField id="nombreProfesor" fx:id="lastNameClient" prefHeight="26.0" prefWidth="190.0" promptText="Ingrese el primer apellido" />
                                  </children>
                                  <padding>
                                     <Insets left="10.0" />
@@ -139,10 +137,10 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Label prefHeight="18.0" prefWidth="46.0" text="ID" textAlignment="CENTER" wrapText="true" />
-                                    <TextField id="nombreProfesor" fx:id="nombreProfesor11" prefHeight="26.0" prefWidth="191.0" promptText="Ingrese el ID" />
+                                    <Label alignment="CENTER" prefHeight="18.0" prefWidth="62.0" text="ID" textAlignment="CENTER" wrapText="true" />
+                                    <TextField id="nombreProfesor" fx:id="idClient" prefHeight="26.0" prefWidth="183.0" promptText="Ingrese el ID" />
                                     <Label text="Teléfono" />
-                                    <TextField id="nombreProfesor" fx:id="nombreProfesor111" prefHeight="26.0" prefWidth="189.0" promptText="Ingrese el numero de celular" />
+                                    <TextField id="nombreProfesor" fx:id="phoneClient" prefHeight="26.0" prefWidth="189.0" promptText="Ingrese el numero de celular" />
                                  </children>
                                  <padding>
                                     <Insets left="10.0" />
@@ -150,23 +148,14 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="2">
                                  <children>
-                                    <Label prefHeight="18.0" prefWidth="47.0" text="Genero" />
-                                    <ChoiceBox id="carreraProfesor" fx:id="carreraProfesor" prefHeight="26.0" prefWidth="185.0" />
                                     <Label text="Cumpleaños" />
-                                    <DatePicker />
+                                    <DatePicker fx:id="birthdayClient" />
+                                    <Label text="Correo" />
+                                    <TextField id="nombreProfesor" fx:id="emailClient" prefHeight="26.0" prefWidth="188.0" promptText="Ingrese su correo electronico" />
                                  </children>
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="706.0" spacing="20.0" GridPane.rowIndex="3">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                                 <children>
-                                    <Label text="Dirección" />
-                                    <TextField id="nombreProfesor" fx:id="nombreProfesor1111" prefHeight="26.0" prefWidth="188.0" promptText="Ingrese la dirección" />
-                                 </children>
                               </HBox>
                            </children>
                         </GridPane>
@@ -174,15 +163,14 @@
                   </AnchorPane>
                   <AnchorPane layoutX="63.0" layoutY="271.0" minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="638.0">
                      <children>
-                        <TableView layoutX="63.0" layoutY="18.0" prefHeight="141.0" prefWidth="526.0">
+                        <TableView fx:id="tblClient" layoutX="66.0" layoutY="17.0" onSort="#select" prefHeight="144.0" prefWidth="522.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Nombre" />
-                            <TableColumn prefWidth="75.0" text="Apellido" />
-                              <TableColumn prefWidth="75.0" text="ID" />
-                              <TableColumn prefWidth="75.0" text="Genero" />
-                              <TableColumn prefWidth="75.0" text="Teléfono" />
-                              <TableColumn prefWidth="75.0" text="Cumpleaños" />
-                              <TableColumn prefWidth="75.0" text="Dirección" />
+                            <TableColumn fx:id="colName" prefWidth="75.0" text="Nombre" />
+                            <TableColumn fx:id="colLastName" prefWidth="75.0" text="Apellido" />
+                              <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colPhone" prefWidth="75.0" text="Teléfono" />
+                              <TableColumn fx:id="colDay" prefWidth="108.80001831054688" text="Cumpleaños" />
+                              <TableColumn fx:id="colEmail" prefWidth="112.0" text="Correo" />
                           </columns>
                         </TableView>
                      </children>

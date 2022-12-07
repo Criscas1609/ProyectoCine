@@ -3,6 +3,8 @@ package co.edu.cue.proyectofinalcorte3.controller;
 import co.edu.cue.proyectofinalcorte3.HelloApplication;
 import co.edu.cue.proyectofinalcorte3.model.Food;
 import co.edu.cue.proyectofinalcorte3.model.Ticket;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,8 @@ import java.util.ResourceBundle;
 
 public class SellViewController implements Initializable {
     ModelFactoryController mfc= ModelFactoryController.getInstance();
+
+    ObservableList<Food> foodView = FXCollections.observableArrayList();
 
     @FXML
     private TableColumn<?, ?> colFood;
@@ -40,7 +44,7 @@ public class SellViewController implements Initializable {
     private TextField idClient;
 
     @FXML
-    private ChoiceBox<?> idMember;
+    private TextField idMember;
 
     @FXML
     private TextField nameClient;
@@ -52,18 +56,21 @@ public class SellViewController implements Initializable {
     void popCorn(ActionEvent event) {
         String name = "Palomitas";
         double price = 7500;
-        mfc.foodTbl(nameMovie.getText(),foodTblView,name,price);
+        mfc.foodTbl(nameMovie.getText(),foodTblView,name,price,foodView);
     }
 
     @FXML
     void drink(ActionEvent event) {
         String name = "Gaseosa";
         double price = 5000;
-        mfc.foodTbl(nameMovie.getText(),foodTblView,name,price);
+        mfc.foodTbl(nameMovie.getText(),foodTblView,name,price,foodView);
     }
 
     @FXML
     void movieView(ActionEvent event) throws IOException {
+        String member = idMember.getText();
+        String id = idClient.getText();
+        String name = nameClient.getText();
         HelloApplication.invoicesView(event);
 
     }
@@ -81,6 +88,6 @@ public class SellViewController implements Initializable {
 
     }
     void tblSell(){
-        mfc.tblSell(nameMovie.getText(),tblView);
+        mfc.tblSell(nameMovie.getText(),tblView,TicketViewController.getTicketsView());
     }
 }

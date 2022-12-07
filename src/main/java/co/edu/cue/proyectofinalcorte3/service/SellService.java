@@ -9,13 +9,12 @@ import javafx.scene.control.TableView;
 import java.util.ArrayList;
 
 public interface SellService {
-    void loadChairs(ArrayList<Button> chairs, String movie,TableView<Ticket> ticketList);
-    void chairMovie(String movie, String chair, double price, ArrayList<Button> chairs, TableView<Ticket> ticketList );
-    void tblSell(String movie,TableView<Ticket> ticketList);
-    ObservableList<Ticket> getTicketsView();
+    void tblSell(String movie,TableView<Ticket> ticketList,ObservableList<Ticket> ticketsView);
+
+    void showTbl(TableView<Ticket> ticketList,ArrayList<Ticket> movie,ObservableList<Ticket> ticketsView);
 
     //Vista de la Venta
-    void foodTbl(String movie,TableView<Food> foodTbl,String food,double price);
+    void foodTbl(String movie,TableView<Food> foodTbl,String food,double price,ObservableList<Food> foodView);
 
     //Venta finalizada
     void deleteTbl();

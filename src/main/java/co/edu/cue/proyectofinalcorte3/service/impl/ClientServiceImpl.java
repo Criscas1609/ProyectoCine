@@ -3,7 +3,12 @@ package co.edu.cue.proyectofinalcorte3.service.impl;
 import co.edu.cue.proyectofinalcorte3.model.Client;
 import co.edu.cue.proyectofinalcorte3.model.ClientDTO;
 import co.edu.cue.proyectofinalcorte3.service.ClientService;
+import javafx.collections.ObservableList;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,19 +18,87 @@ import java.util.stream.Stream;
 
 public class ClientServiceImpl implements ClientService {
     public List<Client> listClients = new ArrayList<Client>();
-    public HashMap<String,Client> clientHashMap = new HashMap<String,Client>();
-    public void data(){
-        Client p1 = new Client("Cristhian","Correa","Masculino", "16/04/2004","123456898","310547852","Carrera 6251");
-        Client p2 = new Client("Camilo","Ceballos","Masculino", "16/04/2004","123456898","310547852","Carrera 6251");
-        Client p3 = new Client("Paula","Builes","Femenino","07/03/2004","123456898","31054722","Carrera 6510");
-        Client p4 = new Client("Derly","Quejada","Femenino","24/04/2005","123456898","31054722","Carrera 6510");
 
-        listClients.add(p1);
-        listClients.add(p2);
-        listClients.add(p3);
-        listClients.add(p4);
+    Client clientAux;
 
+    public void addClient(String name, String id, String lastName, String birthday, String phoneNumber, String address, ObservableList<Client> clientsView, TableView<Client> tblClient) {
+        clientAux = new Client(name, id, lastName, birthday, phoneNumber, address);
+        listClients.add(clientAux);
+        clientsView.add(clientAux);
+        tblClient.setItems(clientsView);
+        tblClient.refresh();
     }
+    public void selectClient(TextField nameClient, TextField lastName, TextField idClient, TextField phoneCliente, TextField emailCliente, DatePicker birthday,ObservableList<Client> clientsView, TableView<Client> tblClient){
+    clientAux = tblClient.getSelectionModel().getSelectedItem();
+    fillInput(nameClient, lastName, idClient, phoneCliente, emailCliente, birthday);
+    }
+    public void fillInput(TextField nameClient, TextField lastName, TextField idClient, TextField phoneCliente, TextField emailCliente, DatePicker birthday){
+        nameClient.setText(clientAux.getName());
+        lastName.setText(clientAux.getLastName());
+        idClient.setText(clientAux.getId());
+        phoneCliente.setText(clientAux.getPhoneNumber());
+        emailCliente.setText(clientAux.getAddress());
+        birthday.setValue(LocalDate.parse(clientAux.getBirthday()));
+    }
+
+    public void showTbl(ObservableList<Client> clientsView, TableView<Client> tblClient){
+        clientsView.clear();
+        for(Client client: listClients){
+            clientsView.add(client);
+            tblClient.setItems(clientsView);
+            tblClient.refresh();
+        }
+    }
+    public void deleteClient(ObservableList<Client> clientsView, TableView<Client> tblClient){
+        if (clientAux == null){
+            System.out.println("Debe de tener un cliente seleccionado");
+        }else{
+            clientsView.remove(clientAux);
+            listClients.remove(clientAux);
+            tblClient.refresh();
+        }
+    }
+    public void editClient(ObservableList<Client> clientsView, TableView<Client> tblClient,Client aux){
+        if (clientAux == null){
+            System.out.println("Debe de tener un cliente seleccionado");
+        }else {
+            editList(aux);
+            showTbl(clientsView,tblClient);
+        }
+    }
+    public void search(TableView<Client> tblClient, String search){
+        for (Client client : listClients){
+            if(client.getName().equals(search) || client.getId().equals(search) || client.getPhoneNumber().equals(search)){
+                tblClient.getSelectionModel().select(client);
+                tblClient.refresh();
+            }
+        }
+    }
+
+    public void editList(Client aux){
+        for (Client client : listClients){
+            if(client == clientAux){
+                client.setName(aux.getName());
+                client.setLastName(aux.getLastName());
+                client.setId(aux.getId());
+                client.setPhoneNumber(aux.getPhoneNumber());
+                client.setAddress(aux.getAddress());
+                client.setBirthday(aux.getBirthday());
+            }
+        }
+    }
+
+
+
+    /*public void fillTable(Client aux) {
+        client.setName(aux.getName());
+        client.setLastName(aux.getLastName());
+        client.setId(aux.getId());
+        client.setPhoneNumber(aux.getPhoneNumber());
+        client.setAddress(aux.getAddress());
+        client.setBirthday(aux.getBirthday());
+    }*/
+
 
     public Stream<Client> search(String name){
         return listClients.stream()
@@ -40,24 +113,6 @@ public class ClientServiceImpl implements ClientService {
                 .collect(Collectors.toList());
     }
 
-    public void create(String name, String lastName, String gender, String birthday, String id, String phoneNumber, String address){
-        clientHashMap.put(id,new Client(name,lastName,gender,birthday,id,phoneNumber,address));
-    }
-    // elimina un objeto por su id
-    public void delete(String id){
-        clientHashMap.remove(id);
-    }
-    // recorre por el método de foreach
-    public void tour(){
-        for(Map.Entry<String, Client> entrada: clientHashMap.entrySet()) {
-            String clave= entrada.getKey();
-            Client client=entrada.getValue();
-        }
-    }
-
-    public void comparator(){
-        listClients.sort(new ComparatorClient());
-    }
 
 
     }

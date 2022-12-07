@@ -20,6 +20,7 @@ public class InvoiceViewController {
     @FXML
     void loginView(ActionEvent event) throws IOException {
         mfc.deleteTbl();
+        mfc.clearList();
         HelloApplication.mainViews(event);
 
     }
